@@ -279,6 +279,13 @@ export class Response extends Macroable {
       this.safeStatus(204)
     }
 
+    /**
+     *
+     */
+    if (this.#config.generateRequestId) {
+      this.header('X-Request-Id', this.request.headers['x-request-id'])
+    }
+
     const statusCode = this.response.statusCode
 
     /**

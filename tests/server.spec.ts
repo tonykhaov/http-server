@@ -994,6 +994,7 @@ test.group('Server | force content negotiation', () => {
       .merge({
         app,
         config: {
+          generateRequestId: true,
           useAsyncLocalStorage: true,
         },
       })
@@ -1021,12 +1022,14 @@ test.group('Server | force content negotiation', () => {
       'Http context is not available outside of an HTTP request'
     )
 
-    const { body } = await supertest(httpServer).get('/').expect(200)
+    const { body, headers } = await supertest(httpServer).get('/').expect(200)
     assert.deepEqual(body, {
       enabled: true,
       get: true,
       getOrFail: true,
     })
+
+    assert.exists(headers['x-request-id'])
   })
 
   test('run a callback outside the ALS context', async ({ assert }) => {

@@ -53,6 +53,8 @@ export type ResponseConfig = {
    * Options to set cookies
    */
   cookie: Partial<CookieOptions>
+
+  generateRequestId?: boolean
 }
 
 /**
